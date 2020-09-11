@@ -57,11 +57,6 @@ pipeline {
         }
     }
 
-    stage('Tests') {
-        steps { 
-            
-        }
-    }
 
     stage('Deploy to Heroku') {
         steps {
