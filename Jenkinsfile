@@ -1,11 +1,7 @@
 pipeline { 
-  agent {
+  agent any
 
-	docker {
-            image '14.10' 
-            args '-p 3000:3000' 
-        }
-}
+  tools {nodejs "node"}
   
   environment {
 
