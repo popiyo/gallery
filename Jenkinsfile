@@ -1,7 +1,7 @@
 pipeline { 
   agent any
 
-  tools {nodejs "node"}
+ 
   
   environment {
 
@@ -32,10 +32,8 @@ pipeline {
     }
 
 
-
-
   tools{
-      gradle "Gradle-6"
+      nodejs "node"
   }
   
   stages { 
