@@ -1,11 +1,11 @@
-pipeline { 
+pipeline {
   agent any
 
- 
-  
+
+
   environment {
 
-        EMAIL_BODY = 
+        EMAIL_BODY =
 
         """
 
@@ -13,19 +13,19 @@ pipeline {
 
             <p>
 
-            View console output at 
+            View console output at
 
             "<a href="${env.BUILD_URL}">${env.JOB_NAME}:${env.BUILD_NUMBER}</a>"
 
-            </p> 
+            </p>
 
             <p><i>(Build log is attached.)</i></p>
 
         """
 
-        EMAIL_SUBJECT_SUCCESS = "Status: 'SUCCESS' -Job \'${env.JOB_NAME}:${env.BUILD_NUMBER}\'" 
+        EMAIL_SUBJECT_SUCCESS = "Status: 'SUCCESS' -Job \'${env.JOB_NAME}:${env.BUILD_NUMBER}\'"
 
-        EMAIL_SUBJECT_FAILURE = "Status: 'FAILURE' -Job \'${env.JOB_NAME}:${env.BUILD_NUMBER}\'" 
+        EMAIL_SUBJECT_FAILURE = "Status: 'FAILURE' -Job \'${env.JOB_NAME}:${env.BUILD_NUMBER}\'"
 
         EMAIL_RECEPIENT = 'oppspetedev@gmail.com'
 
@@ -35,45 +35,56 @@ pipeline {
   tools{
       nodejs "node"
   }
-  
-  stages { 
-      
+
+  stages {
+
     stage('clone repository') {
-      steps { 
+      steps {
         git 'https://github.com/popiyo/gallery.git'
       }
-      
-    }
-    
-    stage('Download Dependancies [for Testing Purposes]') {
-        steps { 
-            sh 'npm install body-parser --save'
-	    sh 'npm audit fix'
-	    sh 'npm install ejs --save'
-	    sh 'npm install express --save'
-	    sh 'npm install mongoose --save'
-	    sh 'npm install multer --save'
-	    sh 'npm install uuid --save'
-        }
+
     }
 
+    stage('Download Dependancies [for Testing Purposes]') {
+        steps {
+                  sh 'npm install body-parser --save'
+            	    sh 'npm audit fix'
+            	    sh 'npm install ejs --save'
+            	    sh 'npm install express --save'
+            	    sh 'npm install mongoose --save'
+            	    sh 'npm install multer --save'
+            	    sh 'npm install uuid --save'
+                  sh 'npm install chai --save'
+                  sh 'npm audit fix --force'
+                  sh 'npm chai-http --save'
+                  sh 'npm mocha --save'
+              }
+    }
+
+
+    stage('Unit Tests') {
+          steps {
+                  sh 'npm test'
+                  }
+
+        }
 
     stage('Deploy to Heroku') {
-        steps {
-                withCredentials([usernameColonPassword(credentialsId: 'heroku', variable: 'HEROKU_CREDENTIALS' )]){
-                sh 'git push https://${HEROKU_CREDENTIALS}@git.heroku.com/galleryip.git master'
-                }
+          steps {
+                    withCredentials([usernameColonPassword(credentialsId: 'heroku', variable: 'HEROKU_CREDENTIALS' )]){
+                    sh 'git push https://${HEROKU_CREDENTIALS}@git.heroku.com/galleryip.git master'
+                        }
+                    }
             }
-    } 
 
-	
-}	
+
+}
 
 
  post {
         success {
-            emailext attachLog: true, 
-                body: EMAIL_BODY, 
+            emailext attachLog: true,
+                body: EMAIL_BODY,
 
                 subject: EMAIL_SUBJECT_SUCCESS,
 
@@ -81,10 +92,10 @@ pipeline {
         }
 
         failure {
-            emailext attachLog: true, 
-                body: EMAIL_BODY, 
+            emailext attachLog: true,
+                body: EMAIL_BODY,
 
-                subject: EMAIL_SUBJECT_FAILURE, 
+                subject: EMAIL_SUBJECT_FAILURE,
 
                 to: EMAIL_RECEPIENT
         }
