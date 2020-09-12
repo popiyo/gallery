@@ -1,3 +1,8 @@
+
+//SPECIFY WHICH DEPLOYMENT THIS IS
+const deploy_env = "test";
+
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -12,6 +17,7 @@ let image = require('./routes/image');
 const app = express();
 
 // connecting the database
+<<<<<<< HEAD
 
 const MONGODB_URI = process.env.MONGODB_URI || config.mongoURI[app.settings.env]
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true  },(err)=>{
@@ -20,7 +26,17 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
     }else{
         console.log(`Connected to Database: ${MONGODB_URI}`)
     }
+=======
+let db_source = require('./_config');
+let mongodb_url = db_source.mongoURI[deploy_env];
+
+
+mongoose.connect(`${mongodb_url}`,{ useNewUrlParser: true , useUnifiedTopology: true }, (err)=>{
+    if (err) console.log(err)
+>>>>>>> master
 });
+
+
 
 // test if the database has connected successfully
 // let db = mongoose.connection;
@@ -46,11 +62,14 @@ app.use('/image', image);
 
 
 
- 
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT,() =>{
     console.log(`Server is listening at http://localhost:${PORT}`)
 });
+<<<<<<< HEAD
 
 
 module.exports = app;
+=======
+>>>>>>> master
