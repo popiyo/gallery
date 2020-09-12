@@ -17,24 +17,14 @@ let image = require('./routes/image');
 const app = express();
 
 // connecting the database
-=======
 let db_source = require('./_config');
 let mongodb_url = db_source.mongoURI[deploy_env];
 
 
 mongoose.connect(`${mongodb_url}`,{ useNewUrlParser: true , useUnifiedTopology: true }, (err)=>{
     if (err) console.log(err)
->>>>>>> master
+
 });
-
-
-
-// test if the database has connected successfully
-// let db = mongoose.connection;
-// db.once('open', ()=>{
-//     console.log('Database connected successfully')
-// })
-
 
 
 
