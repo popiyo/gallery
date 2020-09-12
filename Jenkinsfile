@@ -56,8 +56,8 @@ pipeline {
             	    sh 'npm install uuid --save'
                   sh 'npm install chai --save'
                   sh 'npm audit fix --force'
-                  sh 'npm chai-http --save'
-                  sh 'npm mocha --save'
+                  sh 'npm install chai-http --save'
+                  sh 'npm install mocha --save'
               }
     }
 
