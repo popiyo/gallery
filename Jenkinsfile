@@ -66,7 +66,6 @@ pipeline {
           steps {
                   sh 'npm test'
                   }
-
         }
 
     stage('Deploy to Heroku') {
@@ -100,7 +99,6 @@ pipeline {
                 to: EMAIL_RECEPIENT
         }
     }
-
 
 
 
