@@ -17,15 +17,6 @@ let image = require('./routes/image');
 const app = express();
 
 // connecting the database
-<<<<<<< HEAD
-
-const MONGODB_URI = process.env.MONGODB_URI || config.mongoURI[app.settings.env]
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true  },(err)=>{
-    if (err) {
-        console.log(err)
-    }else{
-        console.log(`Connected to Database: ${MONGODB_URI}`)
-    }
 =======
 let db_source = require('./_config');
 let mongodb_url = db_source.mongoURI[deploy_env];
@@ -68,8 +59,11 @@ app.listen(PORT,() =>{
     console.log(`Server is listening at http://localhost:${PORT}`)
 });
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 module.exports = app;
+=======
+>>>>>>> master
 =======
 >>>>>>> master
