@@ -65,6 +65,7 @@ pipeline {
     stage('Unit Tests') {
           steps {
                   sh 'npm test'
+
                   }
         }
 
@@ -84,10 +85,10 @@ pipeline {
         success {
             emailext attachLog: true,
                 body: EMAIL_BODY,
-
                 subject: EMAIL_SUBJECT_SUCCESS,
-
                 to: EMAIL_RECEPIENT
+
+                slackSend color:#BADA55', message:'Deploy Success'
         }
 
         failure {
