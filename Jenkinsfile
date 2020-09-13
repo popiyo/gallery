@@ -88,7 +88,7 @@ pipeline {
                 subject: EMAIL_SUBJECT_SUCCESS,
                 to: EMAIL_RECEPIENT
 
-                slackSend color:#BADA55', message:'Deploy Success'
+                slackSend color:'#BADA55', message:'Deploy Success'
         }
 
         failure {
