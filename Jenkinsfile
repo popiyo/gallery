@@ -88,9 +88,7 @@ pipeline {
                 subject: EMAIL_SUBJECT_SUCCESS,
                 to: EMAIL_RECEPIENT
 
-                slackSend color:'#BADA55', message:'Gallary App Deploy Success'
-		slacksedn color:'#BADA55', message:'Build: \${BUILD_ID}'
-		slacksedn color:'#BADA55', message:'Link: https://galleryip.herokuapp.com'
+                slackSend color:'#BADA55', message:'Gallary App Deploy Success \nBuild: \${BUILD_ID} \nLink: https://galleryip.herokuapp.com'
 
         }
 
